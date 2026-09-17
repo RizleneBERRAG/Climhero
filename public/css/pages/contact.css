@@ -5,7 +5,7 @@
 .contact-hero {
     background: radial-gradient(120% 120% at 20% 0%, #10243a 0%, #071320 60%, #050d16 100%);
     color: #a2bbd0;
-    padding-block: clamp(48px, 6vw, 82px);
+    padding-block: calc(var(--header-h) + clamp(30px, 3vw, 46px)) clamp(48px, 6vw, 82px);
     position: relative;
     overflow: hidden;
 }

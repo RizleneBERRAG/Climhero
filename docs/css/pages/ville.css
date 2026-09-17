@@ -5,7 +5,7 @@
 .city-hero {
     background: radial-gradient(130% 130% at 18% 0%, #10243a 0%, #071320 58%, #050d16 100%);
     color: #a2bbd0;
-    padding-block: 26px clamp(52px, 6vw, 84px);
+    padding-block: calc(var(--header-h) + 22px) clamp(52px, 6vw, 84px);
     position: relative;
     overflow: hidden;
 }

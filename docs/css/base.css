@@ -140,6 +140,9 @@ p { text-wrap: pretty; }
 /* --------------------------------------------------------------------------
    3. Structure
    -------------------------------------------------------------------------- */
+/* Hauteur totale de la barre flottante : la bulle plus son air autour. */
+:root { --header-h: 96px; }
+
 .shell {
     width: 100%;
     max-width: var(--shell);
@@ -421,26 +424,47 @@ svg.ico { width: 18px; height: 18px; }
 
 .topbar a:hover { color: #fff; }
 
+/* La navigation est une bulle posee sur le contenu : l'en-tete lui-meme n'est
+   qu'un rail transparent, et la marge negative fait remonter le hero dessous. */
 .site-header {
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(255, 255, 255, .88);
-    backdrop-filter: blur(16px) saturate(160%);
-    border-bottom: 1px solid transparent;
-    transition: box-shadow .4s ease, border-color .4s ease, background .4s ease;
-}
-
-.site-header.is-stuck {
-    box-shadow: 0 6px 30px rgba(10, 26, 43, .09);
-    border-bottom-color: var(--line);
+    height: var(--header-h);
+    margin-bottom: calc(-1 * var(--header-h));
+    display: flex;
+    align-items: center;
+    background: transparent;
+    pointer-events: none;
 }
 
 .site-header__inner {
     display: flex;
     align-items: center;
-    gap: clamp(14px, 1.8vw, 26px);
-    min-height: 78px;
+    gap: clamp(12px, 1.6vw, 22px);
+    min-height: 66px;
+    width: calc(100% - 2 * var(--gutter));
+    padding-block: 8px;
+    padding-inline: clamp(16px, 1.5vw, 26px);
+    border-radius: var(--r-pill);
+    background: rgba(255, 255, 255, .82);
+    border: 1px solid rgba(255, 255, 255, .6);
+    backdrop-filter: blur(20px) saturate(170%);
+    -webkit-backdrop-filter: blur(20px) saturate(170%);
+    box-shadow:
+        0 1px 0 rgba(255, 255, 255, .5) inset,
+        0 16px 40px -16px rgba(6, 18, 32, .42);
+    pointer-events: auto;
+    transition: background .4s ease, box-shadow .4s ease, transform .4s var(--ease-out);
+}
+
+/* Au defilement, la bulle se resserre et s'opacifie pour rester lisible. */
+.site-header.is-stuck .site-header__inner {
+    background: rgba(255, 255, 255, .95);
+    box-shadow:
+        0 1px 0 rgba(255, 255, 255, .6) inset,
+        0 18px 44px -14px rgba(6, 18, 32, .5);
+    transform: scale(.985);
 }
 
 .brand { display: inline-flex; align-items: center; gap: 12px; flex: none; }
@@ -486,8 +510,8 @@ svg.ico { width: 18px; height: 18px; }
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 10px clamp(8px, .85vw, 12px);
-    border-radius: var(--r-sm);
+    padding: 9px clamp(8px, .85vw, 13px);
+    border-radius: var(--r-pill);
     font-size: 15.5px;
     white-space: nowrap;
     font-weight: 500;
@@ -497,9 +521,13 @@ svg.ico { width: 18px; height: 18px; }
 }
 
 .nav__link:hover,
-.nav__item.is-open > .nav__link { background: var(--mist); }
+.nav__item.is-open > .nav__link { background: var(--mist); border-radius: var(--r-pill); }
 
-.nav__link.is-active { color: var(--cool-600); font-weight: 600; }
+.nav__link.is-active {
+    color: var(--cool-600);
+    font-weight: 600;
+    background: rgba(0, 119, 186, .09);
+}
 
 .nav__caret { width: 14px; height: 14px; transition: transform .3s var(--ease-out); }
 
@@ -575,16 +603,20 @@ svg.ico { width: 18px; height: 18px; }
 
 .header__phone svg { width: 34px; height: 34px; padding: 8px; border-radius: 50%; background: var(--mist-2); color: var(--cool-600); }
 
+/* Dans la bulle, le bouton menu reste discret : pas de carte blanche sur blanc. */
 .burger {
     display: none;
-    width: 46px;
-    height: 46px;
-    border-radius: var(--r-sm);
-    border: 1px solid var(--line);
-    background: var(--paper);
+    width: 44px;
+    height: 44px;
+    border-radius: var(--r-pill);
+    border: 1px solid transparent;
+    background: rgba(10, 26, 43, .07);
     cursor: pointer;
     position: relative;
+    transition: background .25s ease;
 }
+
+.burger:hover { background: rgba(10, 26, 43, .12); }
 
 .burger span {
     position: absolute;
@@ -610,7 +642,7 @@ svg.ico { width: 18px; height: 18px; }
     inset: 0;
     z-index: 99;
     background: var(--paper);
-    padding: 108px var(--gutter) 40px;
+    padding: calc(var(--header-h) + 18px) var(--gutter) 40px;
     overflow-y: auto;
     transform: translateY(-8px);
     opacity: 0;
@@ -1294,12 +1326,14 @@ svg.ico { width: 18px; height: 18px; }
 }
 
 @media (max-width: 960px) {
+    :root { --header-h: 84px; }
+
     .nav,
     .header__phone { display: none; }
 
     .burger { display: block; }
 
-    .site-header__inner { min-height: 68px; }
+    .site-header__inner { min-height: 58px; }
 
     .topbar__list li:not(:first-child) { display: none; }
 

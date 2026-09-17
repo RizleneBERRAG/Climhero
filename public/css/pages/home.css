@@ -65,7 +65,7 @@
     grid-template-columns: minmax(0, 1fr) minmax(288px, 344px);
     gap: clamp(30px, 4vw, 64px);
     align-items: center;
-    padding-block: clamp(92px, 11vw, 140px) clamp(38px, 5vw, 60px);
+    padding-block: calc(var(--header-h) + clamp(26px, 3vw, 46px)) clamp(38px, 5vw, 60px);
 }
 
 .hero__content { max-width: 41rem; }

@@ -18,7 +18,7 @@
     position: relative;
     background: radial-gradient(130% 120% at 15% 0%, #10243a 0%, #071320 58%, #050d16 100%);
     color: #a2bbd0;
-    padding-block: 26px clamp(56px, 7vw, 92px);
+    padding-block: calc(var(--header-h) + 22px) clamp(56px, 7vw, 92px);
     overflow: hidden;
     isolation: isolate;
 }

@@ -5,7 +5,7 @@
 .legal-hero {
     background: radial-gradient(120% 130% at 20% 0%, #10243a 0%, #071320 60%, #050d16 100%);
     color: #a2bbd0;
-    padding-block: 26px clamp(42px, 5vw, 64px);
+    padding-block: calc(var(--header-h) + 22px) clamp(42px, 5vw, 64px);
 }
 
 .legal-hero h1 { color: #fff; }

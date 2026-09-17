@@ -1,0 +1,214 @@
+/* ==========================================================================
+   CLIMHERO - Page contact et demande de devis
+   ========================================================================== */
+
+.contact-hero {
+    background: radial-gradient(120% 120% at 20% 0%, #10243a 0%, #071320 60%, #050d16 100%);
+    color: #a2bbd0;
+    padding-block: clamp(48px, 6vw, 82px);
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-hero::after {
+    content: "";
+    position: absolute;
+    width: 520px;
+    height: 520px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(228, 18, 31, .22), transparent 65%);
+    bottom: -280px;
+    right: -120px;
+    pointer-events: none;
+}
+
+.contact-hero__inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1.2fr .8fr;
+    gap: clamp(28px, 4vw, 60px);
+    align-items: center;
+}
+
+.contact-hero__title {
+    color: #fff;
+    font-size: clamp(2.2rem, 4.4vw, 3.3rem);
+    margin: 22px 0 16px;
+}
+
+.contact-hero__lede { font-size: clamp(1rem, 1.3vw, 1.15rem); max-width: 52ch; }
+
+.contact-hero__points { display: grid; gap: 13px; }
+
+.contact-hero__points li { display: flex; gap: 11px; align-items: flex-start; font-size: 15px; color: #b9cbdc; }
+
+.contact-hero__points svg { width: 20px; height: 20px; color: var(--cool-400); flex: none; margin-top: 1px; }
+
+/* --------------------------------------------------------------------------
+   Grille
+   -------------------------------------------------------------------------- */
+.contact__grid {
+    display: grid;
+    grid-template-columns: 1.35fr .65fr;
+    gap: clamp(28px, 4vw, 54px);
+    align-items: start;
+}
+
+.contact__form-wrap {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--r-xl);
+    padding: clamp(24px, 3.4vw, 42px);
+    box-shadow: var(--shadow-md);
+}
+
+/* --------------------------------------------------------------------------
+   Formulaire par etapes
+   -------------------------------------------------------------------------- */
+.qform__progress { margin-bottom: 34px; }
+
+.qform__bar {
+    height: 5px;
+    border-radius: 3px;
+    background: var(--mist-2);
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+
+.qform__bar span {
+    display: block;
+    height: 100%;
+    width: 33.33%;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--cool-500), var(--warm-500));
+    transition: width .6s var(--ease-out);
+}
+
+.qform__steps { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.qform__steps li {
+    flex: 1;
+    min-width: 120px;
+    font-size: 13.4px;
+    font-weight: 600;
+    color: #9fb0c1;
+    padding-top: 2px;
+    transition: color .3s ease;
+}
+
+.qform__steps li.is-active { color: var(--heading); }
+
+.qform__steps li.is-done { color: var(--cool-600); }
+
+/* Par defaut toutes les etapes sont visibles : le formulaire reste utilisable
+   sans JavaScript. Le decoupage n'est active qu'une fois la classe
+   is-enhanced posee par contact.js. */
+.qform__step { border: 0; padding: 0; margin: 0 0 40px; }
+
+.qform.is-enhanced .qform__step { display: none; margin-bottom: 0; }
+
+.qform.is-enhanced .qform__step.is-active { display: block; animation: qform-in .45s var(--ease-out); }
+
+@keyframes qform-in {
+    from { opacity: 0; transform: translateX(14px); }
+    to { opacity: 1; transform: none; }
+}
+
+.qform__legend {
+    font-family: var(--font-display);
+    font-size: clamp(1.3rem, 2.2vw, 1.6rem);
+    font-weight: 700;
+    color: var(--heading);
+    letter-spacing: -.02em;
+    margin-bottom: 26px;
+    padding: 0;
+}
+
+.qform .field { margin-bottom: 24px; }
+
+.qform__row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+
+.qform__nav { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
+
+.qform__nav .btn--ghost { order: -1; }
+
+/* Sans JavaScript : ni barre de progression, ni boutons de navigation */
+.qform:not(.is-enhanced) .qform__progress,
+.qform:not(.is-enhanced) [data-qform-next],
+.qform:not(.is-enhanced) [data-qform-prev] { display: none; }
+
+/* --------------------------------------------------------------------------
+   Colonne laterale
+   -------------------------------------------------------------------------- */
+.contact__aside { display: grid; gap: 18px; position: sticky; top: 118px; }
+
+.contact__card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    padding: 28px;
+}
+
+.contact__card h2 { margin-bottom: 16px; }
+
+.contact__phone {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-display);
+    font-size: 1.45rem;
+    font-weight: 700;
+    letter-spacing: -.03em;
+    color: var(--heading);
+    margin-bottom: 8px;
+}
+
+.contact__phone svg {
+    width: 40px;
+    height: 40px;
+    padding: 10px;
+    border-radius: 50%;
+    background: rgba(0, 119, 186, .12);
+    color: var(--cool-600);
+    flex: none;
+}
+
+.contact__hours { font-size: 14.2px; color: var(--muted); margin-bottom: 20px; }
+
+.contact__address { font-size: 15.4px; line-height: 1.7; margin-bottom: 14px; }
+
+.contact__card--dark { background: var(--ink-900); border-color: var(--ink-900); color: #b9cbdc; }
+
+.contact__card--dark h2 { color: #fff; }
+
+.contact__next { display: grid; gap: 16px; }
+
+.contact__next li { display: flex; gap: 13px; align-items: flex-start; font-size: 14.8px; line-height: 1.5; }
+
+.contact__next span {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, var(--cool-600), var(--cool-400));
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    flex: none;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+@media (max-width: 1080px) {
+    .contact-hero__inner { grid-template-columns: 1fr; }
+    .contact__grid { grid-template-columns: 1fr; }
+    .contact__aside { position: static; }
+}
+
+@media (max-width: 620px) {
+    .qform__row { grid-template-columns: 1fr; }
+    .qform__nav .btn { width: 100%; }
+}

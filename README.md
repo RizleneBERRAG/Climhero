@@ -45,12 +45,9 @@ pour le back-office.
 Le site est alors sur http://localhost:8000
 Le back-office sur http://localhost:8000/admin/connexion
 
-Identifiants crees par le seeder (a changer dans `.env` avant toute mise en ligne) :
-
-```
-ADMIN_EMAIL=contact@climhero.fr
-ADMIN_PASSWORD=climhero2026
-```
+Le seeder cree le compte du back-office avec `ADMIN_EMAIL` et `ADMIN_PASSWORD`
+pris dans `.env`. Si `ADMIN_PASSWORD` est vide, il tire un mot de passe au
+hasard et l'affiche une seule fois dans le terminal : notez-le.
 
 `npm install` et `npm run build` ne sont **pas** necessaires : le CSS et le JS
 sont servis directement depuis `public/`, avec un cache-buster base sur la date

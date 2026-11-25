@@ -6,18 +6,30 @@ use App\Models\Lead;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        User::query()->firstOrCreate(
-            ['email' => env('ADMIN_EMAIL', 'contact@climhero.fr')],
-            [
+        $email = env('ADMIN_EMAIL', 'contact@climhero.fr');
+
+        if (! User::query()->where('email', $email)->exists()) {
+            // Aucun mot de passe par defaut dans le code : si ADMIN_PASSWORD est vide,
+            // on en tire un au hasard et on l'affiche une seule fois.
+            $password = env('ADMIN_PASSWORD');
+
+            if (blank($password)) {
+                $password = Str::password(16, symbols: false);
+                $this->command?->warn("ADMIN_PASSWORD vide : mot de passe du back-office genere pour {$email} : {$password}");
+            }
+
+            User::query()->create([
+                'email' => $email,
                 'name' => 'Equipe Climhero',
-                'password' => Hash::make(env('ADMIN_PASSWORD', 'climhero2026')),
-            ]
-        );
+                'password' => Hash::make($password),
+            ]);
+        }
 
         if (Lead::count() > 0) {
             return;
